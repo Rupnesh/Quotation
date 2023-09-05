@@ -11,7 +11,8 @@ function TableRows({ rowsData, deleteTableRows, handleChange }) {
             onChange={(evnt) => handleChange(index, evnt)}
             name="serialNumber"
             className="form-control"
-            style={{ width: '24px' }}
+            style={{ width: '48px' }}
+            disabled
           />
         </td>
         <td>
@@ -21,6 +22,7 @@ function TableRows({ rowsData, deleteTableRows, handleChange }) {
             onChange={(evnt) => handleChange(index, evnt)}
             name="item"
             className="form-control"
+            style={{ width: '100px' }}
           />{' '}
         </td>
         <td>
@@ -30,7 +32,7 @@ function TableRows({ rowsData, deleteTableRows, handleChange }) {
             onChange={(evnt) => handleChange(index, evnt)}
             name="quantity"
             className="form-control"
-            style={{ width: '24px' }}
+            style={{ width: '48px' }}
           />{' '}
         </td>
         <td>

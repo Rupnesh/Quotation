@@ -44,10 +44,10 @@ function AddDeleteTableRows(props) {
   };
   const handleRowData = rowsData;
   return (
-    <div className="container">
+    <div>
       <div className="row">
         <div
-          className="col-sm-8"
+          className="col-sm-12"
           style={{ width: '100wh', overflow: 'scroll' }}
         >
           <table className="table flex">
