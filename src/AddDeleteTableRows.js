@@ -48,7 +48,7 @@ function AddDeleteTableRows(props) {
       <div className="row">
         <div
           className="col-sm-12"
-          style={{ width: '100wh', overflow: 'scroll' }}
+          style={{ width: '100wh', overflow: 'scroll', marginRight: '15px', marginLeft: '15px' }}
         >
           <table className="table flex">
             <thead>
