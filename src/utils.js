@@ -1,4 +1,10 @@
 const helpers = {
+  setLocalStorage: function (key, data) {
+    window.localStorage.setItem(key, JSON.stringify(data));
+  },
+  getLocalStorage: function (key) {
+    return window.localStorage.getItem(key);
+  },
   convertToIndianCurrency: function (number) {
     return number.toLocaleString('en-IN', {
       // maximumFractionDigits: 2,
