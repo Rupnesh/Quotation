@@ -11,13 +11,38 @@ class App extends Component {
     this.state = {
       companyLogo: '',
       comapny_name: '',
+      comapny_address: '',
       bill_to_customer: '',
       bill_to_customer_address: '',
       quotation_date: new Date().toLocaleDateString(),
       quotationData: [],
       gst_selection: 'yes',
       totalAmount: 0,
+      default: true,
     };
+  }
+  componentDidMount() {
+    console.log('called...');
+    if (this.state.default) {
+      const data = JSON.parse(helpers.getLocalStorage('COMAPNY_DETAILS'));
+      console.log(data);
+      this.setState((state) => {
+        state.comapny_name = data.comapny_name;
+        state.companyLogo = data.companyLogo;
+        state.comapny_address = data.comapny_address;
+        return state;
+      });
+    }
+  }
+  componentDidUpdate() {
+    console.log('called...');
+    if (this.state.default) {
+      helpers.setLocalStorage('COMAPNY_DETAILS', {
+        comapny_name: this.state.comapny_name,
+        companyLogo: this.state.companyLogo,
+        comapny_address: this.state.comapny_address,
+      });
+    }
   }
 
   onChange = (event) => {
@@ -51,6 +76,12 @@ class App extends Component {
       return state;
     });
   };
+  onDefaultChange = (e) => {
+    this.setState((state) => {
+      state.default = e.target.checked;
+      return state;
+    });
+  };
   onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -66,7 +97,6 @@ class App extends Component {
   createPdf = (html) => Doc.createPdf(html, this.state.comapny_name);
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>
         <section className="header-bar">
@@ -82,7 +112,7 @@ class App extends Component {
                 value={this.state.comapny_name}
                 onChange={this.onChange}
               />
-              <span class="btn btn-primary btn-file">
+              <span className="btn btn-primary btn-file">
                 Browse...
                 <input
                   id="files"
@@ -93,6 +123,25 @@ class App extends Component {
                   className="filetype"
                 />
               </span>
+            </section>
+            <section style={{ display: 'flex', flexDirection: 'column' }}>
+              <input
+                placeholder="Company Address"
+                name="comapny_address"
+                value={this.state.comapny_address}
+                onChange={this.onChange}
+              />
+              <div>
+                <input
+                  id="default"
+                  type="checkbox"
+                  name="default"
+                  onChange={this.onDefaultChange}
+                  className="filetype"
+                  checked
+                />
+                <label htmlFor="default">Set as default</label>
+              </div>
             </section>
             <section
               className="flex-column"
@@ -128,7 +177,7 @@ class App extends Component {
                 onChange={this.handleRadioChange}
                 defaultChecked={this.state.gst_selection}
               />
-              <label for="yes">Yes</label>
+              <label htmlFor="yes">Yes</label>
               <input
                 type="radio"
                 id="no"
@@ -136,7 +185,7 @@ class App extends Component {
                 value="no"
                 onChange={this.handleRadioChange}
               />
-              <label for="no">No</label>
+              <label htmlFor="no">No</label>
             </section>
             <section style={{ margin: '16px 8px' }}>
               <button
@@ -155,6 +204,7 @@ class App extends Component {
                     <section className="flex-row">
                       <div style={{ width: '91%' }}>
                         <h3>{this.state.comapny_name}</h3>
+                        <span>{this.state.comapny_address}</span>
                       </div>
                       <img
                         style={{
@@ -173,7 +223,8 @@ class App extends Component {
                       style={{ justifyContent: 'space-between' }}
                     >
                       <div className="flex-column">
-                        <span>{this.state.bill_to_customer}</span>
+                        Client Name : <span>{this.state.bill_to_customer}</span>
+                        Client Address :
                         <span>{this.state.bill_to_customer_address}</span>
                       </div>
                       <span>{this.state.quotation_date}</span>
@@ -187,7 +238,7 @@ class App extends Component {
                     }}
                   >
                     <section
-                      class="padding-small"
+                      className="padding-small"
                       style={{ height: `100%- 300px` }}
                     >
                       <table
@@ -242,7 +293,7 @@ class App extends Component {
                             })}
                           <tr>
                             <td
-                              colspan="3"
+                              colSpan="3"
                               style={{ borderTop: '1px solid #737373' }}
                             >
                               Total
@@ -262,7 +313,7 @@ class App extends Component {
                         </tbody>
                       </table>
                     </section>
-                    <section class="padding-small">
+                    <section className="padding-small">
                       {/* <span>Amount in words : {this.state.totalAmount}</span> */}
                       <span>
                         Amount in words :{' '}
