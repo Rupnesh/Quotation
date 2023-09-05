@@ -24,12 +24,14 @@ class App extends Component {
   componentDidMount() {
     if (this.state.default) {
       const data = JSON.parse(helpers.getLocalStorage('COMAPNY_DETAILS'));
-      this.setState((state) => {
-        state.comapny_name = data.comapny_name;
-        state.companyLogo = data.companyLogo;
-        state.comapny_address = data.comapny_address;
-        return state;
-      });
+      if (data) {
+        this.setState((state) => {
+          state.comapny_name = data.comapny_name;
+          state.companyLogo = data.companyLogo;
+          state.comapny_address = data.comapny_address;
+          return state;
+        });
+      }
     }
   }
   componentDidUpdate() {
