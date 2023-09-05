@@ -122,3 +122,10 @@ section.pdf-toolbar button:focus {
   cursor: inherit;
   display: block;
 }
+
+
+th:last-child, td:last-child {
+  background: white;
+  position: sticky;
+  right: 0;
+}

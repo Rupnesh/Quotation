@@ -10,9 +10,9 @@ class App extends Component {
     super(props);
     this.state = {
       companyLogo: '',
-      comapny_name: 'Company Name',
-      bill_to_customer: 'Client Name',
-      bill_to_customer_address: 'Client Address',
+      comapny_name: '',
+      bill_to_customer: '',
+      bill_to_customer_address: '',
       quotation_date: new Date().toLocaleDateString(),
       quotationData: [],
       gst_selection: 'yes',
@@ -34,7 +34,7 @@ class App extends Component {
         state.quotationData = data;
         return state;
       },
-      () => {}
+      () => { }
     );
   };
   calculateTotalAmount = () => {
@@ -63,7 +63,7 @@ class App extends Component {
     }
   };
 
-  createPdf = (html) => Doc.createPdf(html);
+  createPdf = (html) => Doc.createPdf(html, this.state.comapny_name);
 
   render() {
     console.log(this.state);
@@ -107,6 +107,7 @@ class App extends Component {
               />
               <input
                 name="bill_to_customer_address"
+                placeholder="Customer Address"
                 value={this.state.bill_to_customer_address}
                 onChange={this.onChange}
               />
@@ -197,7 +198,7 @@ class App extends Component {
                           <tr>
                             <th
                               className="border-right border-bottom"
-                              style={{ width: '32px' }}
+                              style={{ width: '48px' }}
                             >
                               S.N.
                             </th>
@@ -209,7 +210,7 @@ class App extends Component {
                             </th>
                             <th
                               className="border-right border-bottom"
-                              style={{ width: '24px' }}
+                              style={{ width: '48px' }}
                             >
                               Qty
                             </th>
@@ -252,6 +253,7 @@ class App extends Component {
                                 textAlign: 'right',
                               }}
                             >
+                              Rs.
                               {helpers.convertToIndianCurrency(
                                 this.state.totalAmount
                               )}
@@ -265,9 +267,10 @@ class App extends Component {
                       <span>
                         Amount in words :{' '}
                         {this.state.totalAmount > 0 &&
-                          helpers.convertToHindi(
+                          helpers.converToIndianNumber(
                             this.state.totalAmount.toString()
-                          )}
+                          )}{' '}
+                        Rupees Only/-
                       </span>
                       {this.state.gst_selection === 'yes' && (
                         <p>Note : 18% GST applied</p>
