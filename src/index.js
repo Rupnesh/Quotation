@@ -21,20 +21,21 @@ class App extends Component {
       default: true,
     };
   }
-  componentDidMount() {
+  componentWillMount() {
+    console.log('called...');
     if (this.state.default) {
       const data = JSON.parse(helpers.getLocalStorage('COMAPNY_DETAILS'));
-      if (data) {
-        this.setState((state) => {
-          state.comapny_name = data.comapny_name;
-          state.companyLogo = data.companyLogo;
-          state.comapny_address = data.comapny_address;
-          return state;
-        });
-      }
+      console.log(data);
+      this.setState((state) => {
+        state.comapny_name = data.comapny_name;
+        state.companyLogo = data.companyLogo;
+        state.comapny_address = data.comapny_address;
+        return state;
+      });
     }
   }
   componentDidUpdate() {
+    console.log('called...');
     if (this.state.default) {
       helpers.setLocalStorage('COMAPNY_DETAILS', {
         comapny_name: this.state.comapny_name,
@@ -221,12 +222,19 @@ class App extends Component {
                       className="flex-row"
                       style={{ justifyContent: 'space-between' }}
                     >
-                      <div className="flex-column">
-                        Client Name : <span>{this.state.bill_to_customer}</span>
-                        Client Address :
-                        <span>{this.state.bill_to_customer_address}</span>
+                      <div className="flex-column" style={{ width: '91%' }}>
+                        <span>
+                          Client Name :{' '}
+                          <span>{this.state.bill_to_customer}</span>
+                        </span>
+                        <span>
+                          Client Address :{' '}
+                          <span>{this.state.bill_to_customer_address}</span>
+                        </span>
                       </div>
-                      <span>{this.state.quotation_date}</span>
+                      <span style={{ alignSelf: 'flex-start' }}>
+                        {this.state.quotation_date}
+                      </span>
                     </section>
                   </section>
                   <section
