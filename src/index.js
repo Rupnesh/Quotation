@@ -224,11 +224,15 @@ class App extends Component {
                     >
                       <div className="flex-column" style={{ width: '91%' }}>
                         <span>
-                          Client Name :{' '}
+                          <span style={{ fontWeight: 'bold' }}>
+                            Client Name : &nbsp;
+                          </span>
                           <span>{this.state.bill_to_customer}</span>
                         </span>
                         <span>
-                          Client Address :{' '}
+                          <span style={{ fontWeight: 'bold' }}>
+                            Client Address :{' '}
+                          </span>
                           <span>{this.state.bill_to_customer_address}</span>
                         </span>
                       </div>
